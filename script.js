@@ -509,25 +509,81 @@
     next();
   }
 
-  /** Online voices via the local server: GET /api/tts?text=…&lang=… -> MP3. */
-  function canUseOnlineVoices() {
-    return location.protocol === "http:" || location.protocol === "https:";
+  /* Online voices: GET /api/tts?text=…&lang=… -> MP3.
+     The page may be served by *any* static server (Live Server, file://,
+     python -m http.server) that has no /api/tts route — so when the same
+     origin 404s we hunt for `server.py` on its default ports instead of
+     giving up. The working origin is remembered for later visits. */
+  const TTS_CANDIDATE_ORIGINS = ["", "http://localhost:8123", "http://127.0.0.1:8123"];
+  let ttsOrigin = "";
+  try {
+    ttsOrigin = localStorage.getItem("lingoflow-tts-origin") || "";
+  } catch {
+    /* storage blocked — origin rediscovery just takes one extra request */
   }
+
+  function canUseOnlineVoices() {
+    return true; // same-origin or via a discovered local voice server
+  }
+
+  function rememberTtsOrigin(origin) {
+    ttsOrigin = origin;
+    try {
+      if (origin) localStorage.setItem("lingoflow-tts-origin", origin);
+      else localStorage.removeItem("lingoflow-tts-origin");
+    } catch {
+      /* ignore */
+    }
+  }
+
+  /** Origins to probe, most likely first; http:// fallbacks are dropped on https pages. */
+  function ttsOriginsToTry() {
+    const seen = [];
+    for (const origin of [ttsOrigin, ...TTS_CANDIDATE_ORIGINS]) {
+      if (seen.includes(origin)) continue;
+      if (origin.startsWith("http://") && location.protocol === "https:") continue; // mixed content
+      seen.push(origin);
+    }
+    return seen;
+  }
+
+  const isConnectionProblem = (message) =>
+    message === "no-server" ||
+    /^failed to fetch/i.test(message) ||
+    /^networkerror/i.test(message) ||
+    /load failed/i.test(message);
 
   function loadTtsChunk(text, lang) {
     const key = `${lang}|${text}`;
     if (ttsCache.has(key)) return Promise.resolve(ttsCache.get(key));
 
-    return fetch(`/api/tts?text=${encodeURIComponent(text)}&lang=${encodeURIComponent(lang)}`)
-      .then((res) => {
-        if (!res.ok) throw new Error(res.status === 404 ? "no-server" : `HTTP ${res.status}`);
-        return res.blob();
-      })
-      .then((blob) => {
-        const url = URL.createObjectURL(blob);
-        ttsCache.set(key, url);
-        return url;
-      });
+    const query = `?text=${encodeURIComponent(text)}&lang=${encodeURIComponent(lang)}`;
+    const origins = ttsOriginsToTry();
+
+    const tryAt = (i) => {
+      if (i >= origins.length) throw new Error("no-server"); // nothing answered anywhere
+      const origin = origins[i];
+      return fetch(`${origin}/api/tts${query}`)
+        .then((res) => {
+          if (!res.ok) throw new Error(res.status === 404 ? "no-server" : `HTTP ${res.status}`);
+          return res.blob();
+        })
+        .then((blob) => {
+          if (origin !== ttsOrigin) rememberTtsOrigin(origin); // remember the winner
+          const url = URL.createObjectURL(blob);
+          ttsCache.set(key, url);
+          return url;
+        })
+        .catch((err) => {
+          const message = String(err.message || err);
+          // A real server answered (e.g. 502) — no point hunting other ports.
+          if (!isConnectionProblem(message)) throw err;
+          if (origin === ttsOrigin) rememberTtsOrigin(""); // remembered origin is stale
+          return tryAt(i + 1);
+        });
+    };
+
+    return tryAt(0);
   }
 
   /**
@@ -559,7 +615,7 @@
       fellBack = true;
       flashNotice(
         reason === "no-server"
-          ? 'Online voices need the local server — start the app with "python server.py". Using the default voice.'
+          ? 'Voice server not found — run "python server.py" in the project folder, then try again. Using the default voice.'
           : `Online voice for ${langName(langCode)} failed (${reason}) — using the default voice.`,
         6000
       );
