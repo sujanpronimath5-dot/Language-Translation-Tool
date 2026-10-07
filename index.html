@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LingoFlow — Free Instant Text Translator</title>
+  <meta name="description" content="Translate text between 43 languages instantly. Free, no signup, auto language detection, copy and text-to-speech." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="landing.css" />
+</head>
+<body>
+  <!-- ============================= NAV ============================= -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a class="brand brand--link" href="index.html">
+        <span class="brand__logo" aria-hidden="true">🌐</span>
+        <span class="brand__name">LingoFlow</span>
+      </a>
+
+      <div class="nav__links">
+        <a href="#features">Features</a>
+        <a href="#how">How it works</a>
+        <a href="#languages">Languages</a>
+        <a href="#faq">FAQ</a>
+      </div>
+
+      <div class="nav__actions">
+        <button id="themeToggle" class="icon-btn" type="button" title="Toggle dark mode" aria-label="Toggle dark mode">🌙</button>
+        <a class="primary-btn primary-btn--sm" href="app.html">Open translator</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================= HERO ============================= -->
+  <header class="hero">
+    <div class="hero__inner">
+      <div class="hero__copy reveal">
+        <h1>Translate text<br />in a <span class="grad">blink</span>.</h1>
+        <p class="lead">
+          Type anything, pick two languages, and get an instant translation —
+          with auto language detection, one-click copy and natural text-to-speech
+          across <strong>43 languages</strong>.
+        </p>
+
+        <div class="hero__cta">
+          <a class="primary-btn" href="app.html">Open the translator →</a>
+          <a class="ghost-btn ghost-btn--lg" href="app.html?text=Hello%20world%2C%20how%20are%20you%20today%3F&amp;target=es">
+            Try a live sample
+          </a>
+        </div>
+
+        <div class="hero__stats">
+          <div><strong>43</strong><span>languages</span></div>
+          <div><strong>5,000</strong><span>chars per go</span></div>
+          <div><strong>0₹</strong><span>forever</span></div>
+          <div><strong>3</strong><span>backup engines</span></div>
+        </div>
+      </div>
+
+      <!-- Decorative mock of the app -->
+      <div class="hero__mock reveal" aria-hidden="true">
+        <div class="mock card">
+          <div class="mock__bar">
+            <span class="dot dot--r"></span><span class="dot dot--y"></span><span class="dot dot--g"></span>
+            <span class="mock__title">lingoflow · translate</span>
+          </div>
+          <div class="mock__langs">
+            <span>English</span>
+            <span class="mock__arrow">⇄</span>
+            <span>Spanish</span>
+          </div>
+          <p class="mock__src">Hello world, how are you today?</p>
+          <p class="mock__out">Hola mundo, ¿cómo estás hoy?<span class="caret"></span></p>
+          <div class="mock__foot">
+            <span>📋 Copy</span><span>🔊 Listen</span><span class="ok">✓ Translated</span>
+          </div>
+        </div>
+        <div class="float float--1">🇫🇷 French</div>
+        <div class="float float--2">🇯🇵 Japanese</div>
+        <div class="float float--3">🇮🇳 Hindi</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================ FEATURES ============================ -->
+  <section id="features" class="section">
+    <div class="section__head reveal">
+      <h2>Everything you need, nothing you don't</h2>
+      <p>Built as a clean, fast translator — no ads, no accounts, no pop-ups.</p>
+    </div>
+
+    <div class="grid grid--3">
+      <article class="feature card reveal">
+        <span class="feature__icon">🔍</span>
+        <h3>Auto language detection</h3>
+        <p>Don't know the language? Leave it on <em>Detect language</em> and LingoFlow tells you what it found.</p>
+      </article>
+
+      <article class="feature card reveal">
+        <span class="feature__icon">🌍</span>
+        <h3>43 languages</h3>
+        <p>English, Spanish, Hindi, French, German, Japanese, Arabic, Chinese, Portuguese, Russian and many more.</p>
+      </article>
+
+      <article class="feature card reveal">
+        <span class="feature__icon">⚡</span>
+        <h3>Live as you type</h3>
+        <p>Translations update automatically while you type — or hit <kbd>Ctrl</kbd>+<kbd>Enter</kbd> whenever you want.</p>
+      </article>
+
+      <article class="feature card reveal">
+        <span class="feature__icon">📋</span>
+        <h3>One-click copy</h3>
+        <p>Copy the original or the translation instantly with the built-in copy buttons.</p>
+      </article>
+
+      <article class="feature card reveal">
+        <span class="feature__icon">🔊</span>
+        <h3>Text-to-speech</h3>
+        <p>Hear pronunciation in both the source and target language using your device's natural voices.</p>
+      </article>
+
+      <article class="feature card reveal">
+        <span class="feature__icon">🛡️</span>
+        <h3>Triple-engine backup</h3>
+        <p>Google Translate first, MyMemory as fallback — and optionally your own Gemini API key if the free engines ever fail.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- =========================== HOW IT WORKS =========================== -->
+  <section id="how" class="section section--alt">
+    <div class="section__head reveal">
+      <h2>How it works</h2>
+      <p>Three steps, about three seconds.</p>
+    </div>
+
+    <div class="grid grid--3 steps">
+      <div class="step reveal">
+        <span class="step__num">1</span>
+        <h3>Type or paste</h3>
+        <p>Enter up to 5,000 characters of text in the left pane.</p>
+      </div>
+      <div class="step reveal">
+        <span class="step__num">2</span>
+        <h3>Pick languages</h3>
+        <p>Choose the source (or auto-detect) and the target language — or swap them with one tap.</p>
+      </div>
+      <div class="step reveal">
+        <span class="step__num">3</span>
+        <h3>Copy or listen</h3>
+        <p>The translation appears on the right. Copy it, play it aloud, done.</p>
+      </div>
+    </div>
+
+    <div class="center reveal">
+      <a class="primary-btn" href="app.html">Start translating →</a>
+    </div>
+  </section>
+
+  <!-- ============================ LANGUAGES ============================ -->
+  <section id="languages" class="section">
+    <div class="section__head reveal">
+      <h2>Speak their language</h2>
+      <p>A few of the 43 languages supported out of the box:</p>
+    </div>
+
+    <div class="lang-cloud reveal">
+      <a class="chip" href="app.html?text=Hello%20world&amp;target=es">Spanish</a>
+      <a class="chip" href="app.html?text=Hello%20world&amp;target=fr">French</a>
+      <a class="chip" href="app.html?text=Hello%20world&amp;target=hi">Hindi</a>
+      <a class="chip" href="app.html?text=Hello%20world&amp;target=de">German</a>
+      <a class="chip" href="app.html?text=Hello%20world&amp;target=ja">Japanese</a>
+      <a class="chip" href="app.html?text=Hello%20world&amp;target=ko">Korean</a>
+      <a class="chip" href="app.html?text=Hello%20world&amp;target=zh-CN">Chinese</a>
+      <a class="chip" href="app.html?text=Hello%20world&amp;target=ar">Arabic</a>
+      <a class="chip" href="app.html?text=Hello%20world&amp;target=ru">Russian</a>
+      <a class="chip" href="app.html?text=Hello%20world&amp;target=pt">Portuguese</a>
+      <a class="chip" href="app.html?text=Hello%20world&amp;target=it">Italian</a>
+      <a class="chip" href="app.html?text=Hello%20world&amp;target=tr">Turkish</a>
+      <a class="chip" href="app.html?text=Hello%20world&amp;target=vi">Vietnamese</a>
+      <a class="chip" href="app.html?text=Hello%20world&amp;target=th">Thai</a>
+      <a class="chip" href="app.html?text=Hello%20world&amp;target=id">Indonesian</a>
+      <a class="chip" href="app.html?text=Hello%20world&amp;target=pl">Polish</a>
+      <span class="chip chip--muted">+ 27 more</span>
+    </div>
+  </section>
+
+  <!-- ============================== FAQ ============================== -->
+  <section id="faq" class="section section--alt">
+    <div class="section__head reveal">
+      <h2>Questions, answered</h2>
+    </div>
+
+    <div class="faq reveal">
+      <details>
+        <summary>Is it really free?</summary>
+        <p>Yes — the default engines (Google Translate's public web endpoint and MyMemory) need no API key, no signup and no billing. It costs nothing to use.</p>
+      </details>
+      <details>
+        <summary>Do I need an API key?</summary>
+        <p>No. An API key is optional: if the free engines ever stop responding or hit a rate limit, you can add a free Gemini API key from Google AI Studio in ⚙️ settings and translation continues through Gemini. The key stays in your browser only.</p>
+      </details>
+      <details>
+        <summary>Which translation API does it use?</summary>
+        <p>Google Translate (the same web endpoint that powers Google's own translator), with MyMemory as an automatic fallback and Gemini as an optional third engine.</p>
+      </details>
+      <details>
+        <summary>Why does audio sound wrong in some languages?</summary>
+        <p>Browsers can only speak languages that have a voice installed on the device. LingoFlow therefore uses a local voice when one exists, and automatically switches to an online voice (via the bundled <code>server.py</code>) for every other language — so all 43 languages can be heard. Start the app with <code>python server.py</code> to enable that.</p>
+      </details>
+      <details>
+        <summary>Does it work on phones?</summary>
+        <p>Yes — the layout adapts to small screens, and copy, text-to-speech and language swapping all work on mobile browsers.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============================= CTA ============================= -->
+  <section class="cta reveal">
+    <div class="cta__inner">
+      <h2>Ready to translate something?</h2>
+      <p>No account. No limits to hit. Just type and go.</p>
+      <a class="primary-btn" href="app.html">Open LingoFlow →</a>
+    </div>
+  </section>
+
+  <!-- ============================ FOOTER ============================ -->
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <span>🌐 <strong>LingoFlow</strong> — free instant text translation</span>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="app.html">Translator</a>
+        <a href="#features">Features</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+    </div>
+    <p class="site-footer__note">Translations via Google Translate &amp; MyMemory · optional Gemini API backup.</p>
+  </footer>
+
+  <script src="landing.js"></script>
+</body>
+</html>
